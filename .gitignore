@@ -1,0 +1,7 @@
+assets/
+content/
+libs/
+sound/
+*.txt
+*.class
+*.exe
