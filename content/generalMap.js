@@ -12,18 +12,6 @@ export const generateMap = (tileType) => {
             body({ isStatic: true }),
             offscreen()
         ],
-        1: () => [
-            sprite(`${tileType}-tileset`, { anim: "tm" }),
-            area(),
-            body({ isStatic: true }),
-            offscreen()
-        ],
-        1: () => [
-            sprite(`${tileType}-tileset`, { anim: "tm" }),
-            area(),
-            body({ isStatic: true }),
-            offscreen()
-        ],
         2: () => [
             sprite(`${tileType}-tileset`, { anim: "tr" }),
             area(),

@@ -1,9 +1,11 @@
 export class Player {
+    coins = 0
+    jumpableTime = 0.1
     heightD = 0
     isMoving = false
     isRespawning = false
-    constructor(posX, posY, speed, jumpForce, lives, currLevel, isInTerminal) {
-        this.isInTerminal = isInTerminal
+    constructor(posX, posY, speed, jumpForce, lives, currLevel, isFinalLv) {
+        this.isFinalLv = isFinalLv
         this.currLevel = currLevel
         this.initialX = posX
         this.initialY = posY
@@ -28,6 +30,19 @@ export class Player {
         ])
     }
 
+    enableVunerability() {
+        const hitAndRespawn = (context) => {
+            play("hit")
+            context.respawnPlayer()
+        }
+        this.gameObj.onCollide("spiders", () => hitAndRespawn(this))
+        this.gameObj.onCollide("fish", () => hitAndRespawn(this))
+        this.gameObj.onCollide("flame", () => hitAndRespawn(this))
+        this.gameObj.onCollide("axes", () => hitAndRespawn(this))
+        this.gameObj.onCollide("saws", () => hitAndRespawn(this))
+        this.gameObj.onCollide("birds", () => hitAndRespawn(this))
+    }
+
     enablePassthrough() {
         this.gameObj.onBeforePhysicsResolve((collision) => {
             if (collision.target.is("passthrough") && this.gameObj.isJumping()) {
@@ -36,6 +51,14 @@ export class Player {
             if (collision.target.is("passthrough") && isKeyDown("down")) {
                 collision.preventResolution()
             }
+        })
+    }
+
+    enableCoinCollect() {
+        this.gameObj.onCollide("coin", (coin) => {
+            this.coins++
+            destroy(coin)
+            play("coin")
         })
     }
 
@@ -54,10 +77,26 @@ export class Player {
         })
         onKeyDown("space", () => {
             // this.gameObj.jump(this.jumpForce)
+            /*
             if (this.gameObj.isGrounded() && !this.isRespawning) {
+                this.hasJumpedOnce = true
                 this.gameObj.jump(this.jumpForce)
                 play("jumpSound")
-            }
+
+                //Let player jump from the very edge of the ground or a block
+                if (!this.gameObj.isGrounded() &&
+                    time() - this.timeSinceLastGrounded < this.jumpableTime &&
+                    !this.hasJumpedOnce
+                ) {
+                    this.gameObj.jump(this.jumpForce)
+                    play("jumpSound")
+                }
+            }*/
+            if (!this.gameObj.isGrounded() && this.hasJumpedOnce) return
+            if (time() - this.timeSinceLastGrounded > this.jumpableTime) return
+            this.gameObj.jump(this.jumpForce)
+            play("jumpSound")
+            this.hasJumpedOnce = true
         })
         onKeyRelease(() => {
             if (isKeyReleased("right") || isKeyReleased("left")) {
@@ -69,14 +108,24 @@ export class Player {
 
     respawnPlayer() {
         if (this.lives > 0) {
+            this.lives--
             this.gameObj.pos = vec2(this.initialX, this.initialY)
             this.isRespawning = true
             setTimeout(() => this.isRespawning = false, 500)
+            return
         }
+
+        go("gameover")
     }
 
     update() {
         onUpdate(() => {
+            // console.log(this.gameObj.pos)
+            if (this.gameObj.isGrounded()) {
+                this.hasJumpedOnce = false
+                this.timeSinceLastGrounded = time()
+            }
+
             this.heightD = this.previousHeight - this.gameObj.pos.y
             this.previousHeight = this.gameObj.pos.y
             if (!this.isMoving && this.gameObj.curAnim() !== "idle") {
@@ -92,6 +141,21 @@ export class Player {
             if (this.gameObj.pos.y > 1000) {
                 play("hit")
                 this.respawnPlayer()
+            }
+        })
+    }
+
+    updateLivesCount(livesCountUI) {
+        onUpdate(() => {
+            livesCountUI.text = this.lives
+        })
+    }
+
+    updateCoinCount(coinCountUI) {
+        onUpdate(() => {
+            coinCountUI.text = `${this.coins} / ${coinCountUI.fullCoinCount}`
+            if (this.coins === coinCountUI.fullCoinCount) {
+                go(this.isFinalLv ? "end" : this.currLevel + 1)
             }
         })
     }
