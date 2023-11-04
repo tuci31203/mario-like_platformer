@@ -122,7 +122,7 @@ export class Player {
 
     update() {
         onUpdate(() => {
-            console.log(this.gameObj.pos)
+            // console.log(this.gameObj.pos)
             if (this.gameObj.isGrounded()) {
                 this.hasJumpedOnce = false
                 this.timeSinceLastGrounded = time()

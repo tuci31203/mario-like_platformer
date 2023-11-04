@@ -18,10 +18,12 @@ import { Axes } from "./entities/Axes.js"
 import { Saws } from "./entities/Saws.js"
 import { Birds } from "./entities/Birds.js"
 
+
 kaboom({
     width: 1280,
     height: 720,
     letterbox: true,
+    canvas: document.querySelector("#game-container"),
 })
 
 load.fonts()
@@ -219,7 +221,7 @@ const scenes = {
         const player = new Player(lv4Config.playerStartPosX, lv4Config.playerStartPosY, lv4Config.playerSpeed, lv4Config.jumpForce, lv4Config.lives, 4, true)
         player.enablePassthrough()
         player.enableCoinCollect()
-        // player.enableVunerability()
+        player.enableVunerability()
         player.enableSpecial()
         player.update()
 
