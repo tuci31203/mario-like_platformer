@@ -227,7 +227,7 @@ const scenes = {
 
         add([
             sprite("upPower"),
-            pos(8145, 500),
+            pos(8145, 480),
             area(),
             offscreen(),
             "upPower",
@@ -275,6 +275,9 @@ const scenes = {
         camera.attach(player.gameObj, 0, 200)
         lv4.drawWave("cotton", "wave")
     },
+    "preview": () => {
+        uiManager.displayPreview()
+    },
     "gameover": () => {
         const gover = play("gover", {
             volume: 1,
@@ -284,6 +287,7 @@ const scenes = {
             gover.paused = true
         })
         uiManager.displayGOScreen(currLv)
+
     },
     "end": () => {
         const congrat = play("congrat", {
@@ -302,4 +306,6 @@ for (const k in scenes) {
     scene(k, scenes[k])
 }
 
-go("4")
+
+
+go("menu")
