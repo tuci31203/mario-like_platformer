@@ -23,7 +23,6 @@ export const load = {
         loadSprite("lives-icon", "./assets/Livess_Ui.png")
         loadSprite("axe", "./assets/Axe_Trap.png")
         loadSprite("saw", "./assets/Circular_Saw.png")
-        loadSprite("home", "./assets/Switch_Home.png")
         loadSprite("lv1P", "./assets/lv1.png")
         loadSprite("lv2P", "./assets/lv2.png")
         loadSprite("lv3P", "./assets/lv3.png")
