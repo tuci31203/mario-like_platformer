@@ -1,4 +1,5 @@
 export class Player {
+    isSpecial = false
     coins = 0
     jumpableTime = 0.1
     heightD = 0
@@ -28,6 +29,14 @@ export class Player {
             body(),
             "player"
         ])
+    }
+
+    enableSpecial() {
+        this.gameObj.onCollide("upPower", (upPower) => {
+            destroy(upPower)
+            this.isSpecial = true
+            setTimeout(() => { this.isSpecial = false }, 2000)
+        })
     }
 
     enableVunerability() {
@@ -76,27 +85,20 @@ export class Player {
             this.isMoving = true
         })
         onKeyDown("space", () => {
-            // this.gameObj.jump(this.jumpForce)
-            /*
-            if (this.gameObj.isGrounded() && !this.isRespawning) {
-                this.hasJumpedOnce = true
-                this.gameObj.jump(this.jumpForce)
-                play("jumpSound")
-
-                //Let player jump from the very edge of the ground or a block
-                if (!this.gameObj.isGrounded() &&
-                    time() - this.timeSinceLastGrounded < this.jumpableTime &&
-                    !this.hasJumpedOnce
-                ) {
-                    this.gameObj.jump(this.jumpForce)
-                    play("jumpSound")
-                }
-            }*/
             if (!this.gameObj.isGrounded() && this.hasJumpedOnce) return
             if (time() - this.timeSinceLastGrounded > this.jumpableTime) return
             this.gameObj.jump(this.jumpForce)
             play("jumpSound")
             this.hasJumpedOnce = true
+        })
+        onKeyDown("up", () => {
+            if (this.isSpecial) {
+                if (!this.gameObj.isGrounded() && this.hasJumpedOnce) return
+                if (time() - this.timeSinceLastGrounded > this.jumpableTime) return
+                this.gameObj.jump(this.jumpForce + 800)
+                play("jumpSound")
+                this.hasJumpedOnce = true
+            }
         })
         onKeyRelease(() => {
             if (isKeyReleased("right") || isKeyReleased("left")) {
@@ -120,7 +122,7 @@ export class Player {
 
     update() {
         onUpdate(() => {
-            // console.log(this.gameObj.pos)
+            console.log(this.gameObj.pos)
             if (this.gameObj.isGrounded()) {
                 this.hasJumpedOnce = false
                 this.timeSinceLastGrounded = time()

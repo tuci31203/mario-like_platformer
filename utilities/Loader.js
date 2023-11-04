@@ -6,11 +6,13 @@ export const load = {
     assets: () => {
         loadSprite("forest-bg", "./assets/Forest_Background_0.png")
         loadSprite("castle-bg", "./assets/Castle_Background_0.png")
+        loadSprite("final-bg", "./assets/Final_Background_0.png")
         loadSprite("sky0-bg", "./assets/Sky_Background_0.png")
         loadSprite("sky1-bg", "./assets/Sky_Background_1.png")
         loadSprite("sky2-bg", "./assets/Sky_Background_2.png")
         loadSprite("logo", "./assets/Logo.png")
         loadSprite("up", "./assets/Arrow_Up_Key_Dark.png")
+        loadSprite("upPower", "./assets/Arrow_Up.png")
         loadSprite("down", "./assets/Arrow_Down_Key_Dark - Copy.png")
         loadSprite("left", "./assets/Arrow_Left_Key_Dark - Copy.png")
         loadSprite("right", "./assets/Arrow_Right_Key_Dark - Copy.png")
@@ -18,7 +20,7 @@ export const load = {
         loadSprite("coin", "./assets/Coin.png")
         loadSprite("bridge", "./assets/Bridge.png")
         loadSprite("coin-icon", "./assets/Coins_Ui.png")
-        loadSprite("lives-icon", "./assets/Stars_Ui.png")
+        loadSprite("lives-icon", "./assets/Livess_Ui.png")
         loadSprite("axe", "./assets/Axe_Trap.png")
         loadSprite("saw", "./assets/Circular_Saw.png")
         loadSprite("bird", "./assets/Bird_1.png", {
@@ -56,6 +58,14 @@ export const load = {
             }
         })
         loadSprite("spider-2", "./assets/Spider_2.png", {
+            sliceX: 3,
+            sliceY: 1,
+            anims: {
+                crawl: { from: 0, to: 2, loop: true },
+                idle: 0,
+            }
+        })
+        loadSprite("spider-3", "./assets/Spider_3.png", {
             sliceX: 3,
             sliceY: 1,
             anims: {
@@ -118,6 +128,24 @@ export const load = {
             }
         })
         loadSprite("cloud", "./assets/Clouds.png", {
+            sliceX: 8,
+            sliceY: 1,
+            anims: {
+                wave: {
+                    from: 0,
+                    to: 7,
+                    speed: 16,
+                    loop: true,
+                },
+                "wave-reversed": {
+                    from: 7,
+                    to: 0,
+                    speed: 16,
+                    loop: true,
+                }
+            }
+        })
+        loadSprite("cotton", "./assets/Cottoncandy.png", {
             sliceX: 8,
             sliceY: 1,
             anims: {
@@ -212,6 +240,36 @@ export const load = {
             }
         })
         loadSprite("brickOneway-tileset", "./assets/Brick_Oneway.png", {
+            sliceX: 3,
+            sliceY: 4,
+            anims: {
+                tl: 0,
+                tm: 1,
+                tr: 2,
+                ml: 3,
+                mm: 4,
+                mr: 5,
+                bl: 6,
+                bm: 7,
+                br: 8
+            }
+        })
+        loadSprite("final-tileset", "./assets/final_Tileset.png", {
+            sliceX: 3,
+            sliceY: 4,
+            anims: {
+                tl: 0,
+                tm: 1,
+                tr: 2,
+                ml: 3,
+                mm: 4,
+                mr: 5,
+                bl: 6,
+                bm: 7,
+                br: 8
+            }
+        })
+        loadSprite("finalOneway-tileset", "./assets/final_Oneway.png", {
             sliceX: 3,
             sliceY: 4,
             anims: {

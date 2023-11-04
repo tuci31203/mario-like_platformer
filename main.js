@@ -5,11 +5,13 @@ import { Level } from "./utilities/Level.js"
 import { lv1Layout, lv1Map } from "./content/lv1/lv1Layout.js"
 import { lv2Layout, lv2Map } from "./content/lv2/lv2Layout.js"
 import { lv3Layout, lv3Map } from "./content/lv3/lv3Layout.js"
+import { lv4Layout, lv4Map } from "./content/lv4/lv4Layout.js"
 import { Player } from "./entities/Player.js"
 import { Camera } from "./utilities/Camera.js"
 import { lv1Config } from "./content/lv1/config.js"
 import { lv2Config } from "./content/lv2/config.js"
 import { lv3Config } from "./content/lv3/config.js"
+import { lv4Config } from "./content/lv4/config.js"
 import { Spider } from "./entities/Spider.js"
 import { Obstacle } from "./entities/Obstacle.js"
 import { Axes } from "./entities/Axes.js"
@@ -172,13 +174,13 @@ const scenes = {
             bgm.paused = true
         })
         currLv = 3
-        setGravity(lv2Config.gravity)
+        setGravity(lv3Config.gravity)
         const lv3 = new Level()
         lv3.drawBg("sky0-bg")
         lv3.drawBg("sky1-bg")
         lv3.drawBg("sky2-bg")
         lv3.drawMap(lv3Layout, lv3Map)
-        const player = new Player(lv3Config.playerStartPosX, lv3Config.playerStartPosY, lv3Config.playerSpeed, lv3Config.jumpForce, lv3Config.lives, 3, true)
+        const player = new Player(lv3Config.playerStartPosX, lv3Config.playerStartPosY, lv3Config.playerSpeed, lv3Config.jumpForce, lv3Config.lives, 3, false)
         player.enablePassthrough()
         player.enableCoinCollect()
         player.enableVunerability()
@@ -200,6 +202,76 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, 200)
         lv3.drawWave("cloud", "wave")
+    },
+    4: () => {
+        const bgm = play("bgm", {
+            volume: 0.05,
+            loop: true
+        })
+        onSceneLeave(() => {
+            bgm.paused = true
+        })
+        currLv = 4
+        setGravity(lv4Config.gravity)
+        const lv4 = new Level()
+        lv4.drawBg("final-bg")
+        lv4.drawMap(lv4Layout, lv4Map)
+        const player = new Player(lv4Config.playerStartPosX, lv4Config.playerStartPosY, lv4Config.playerSpeed, lv4Config.jumpForce, lv4Config.lives, 4, true)
+        player.enablePassthrough()
+        player.enableCoinCollect()
+        // player.enableVunerability()
+        player.enableSpecial()
+        player.update()
+
+        add([
+            sprite("upPower"),
+            pos(8145, 500),
+            area(),
+            offscreen(),
+            "upPower",
+        ])
+
+
+        const spiders = new Spider(
+            lv4Config.spiderPos.map(spPos => spPos()),
+            lv4Config.spiderAmp,
+            lv4Config.spiderDu,
+            lv4Config.spiderType,
+        )
+        spiders.setMovementPattern()
+        spiders.enablePassthrough()
+
+
+        const flame = new Obstacle(
+            lv4Config.flamePos.map(fsPos => fsPos()),
+            lv4Config.flameAmp,
+            "flame"
+        )
+        flame.setMovementPattern()
+
+
+        const axes = new Axes(
+            lv4Config.axesPositions.map(axPos => axPos()),
+            lv4Config.axesSwingDu,
+        )
+        axes.setMovementPattern()
+
+        const saws = new Saws(
+            lv4Config.sawPositions.map(sPos => sPos()),
+            lv4Config.sawAmp,
+        )
+        saws.setMovementPattern()
+
+
+        uiManager.addDarkBg()
+        uiManager.displayCoinCount(player)
+        player.updateCoinCount(uiManager.coinCountUI)
+        uiManager.displayLivesCount(player)
+        player.updateLivesCount(uiManager.livesCountUI)
+
+        const camera = new Camera()
+        camera.attach(player.gameObj, 0, 200)
+        lv4.drawWave("cotton", "wave")
     },
     "gameover": () => {
         const gover = play("gover", {
@@ -228,4 +300,4 @@ for (const k in scenes) {
     scene(k, scenes[k])
 }
 
-go("menu")
+go("4")

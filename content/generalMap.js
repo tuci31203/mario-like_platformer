@@ -93,6 +93,7 @@ export const generateMap = (tileType) => {
             area(),
             "coin",
             offscreen()
-        ]
+        ],
+
     }
 }
