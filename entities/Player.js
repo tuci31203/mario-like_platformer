@@ -1,4 +1,5 @@
 export class Player {
+    isSuper = false
     isSpecial = false
     coins = 0
     jumpableTime = 0.1
@@ -31,6 +32,18 @@ export class Player {
         ])
     }
 
+    enableSuper() {
+        this.gameObj.onCollide("superP", (isSuper) => {
+            destroy(isSuper)
+            const sfx = play("super")
+            this.isSuper = true
+            setTimeout(() => {
+                this.isSuper = false
+                sfx.paused = true
+            }, 4000)
+        })
+    }
+
     enableSpecial() {
         this.gameObj.onCollide("upPower", (upPower) => {
             destroy(upPower)
@@ -41,8 +54,10 @@ export class Player {
 
     enableVunerability() {
         const hitAndRespawn = (context) => {
-            play("hit")
-            context.respawnPlayer()
+            if (!this.isSuper) {
+                play("hit")
+                context.respawnPlayer()
+            }
         }
         this.gameObj.onCollide("spiders", () => hitAndRespawn(this))
         this.gameObj.onCollide("fish", () => hitAndRespawn(this))
@@ -122,7 +137,7 @@ export class Player {
 
     update() {
         onUpdate(() => {
-            // console.log(this.gameObj.pos)
+            console.log(this.gameObj.pos)
             if (this.gameObj.isGrounded()) {
                 this.hasJumpedOnce = false
                 this.timeSinceLastGrounded = time()

@@ -92,7 +92,9 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, 200)
         lv1.drawWave("water", "wave")
-
+        onKeyDown("r", () => {
+            go(currLv)
+        })
     },
     2: () => {
         const lavaBGM = play("lava-bg", {
@@ -159,6 +161,9 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, 200)
         lv2.drawWave("lava", "wave")
+        onKeyDown("r", () => {
+            go(currLv)
+        })
     },
     3: () => {
         const windBGM = play("wind-bg", {
@@ -204,13 +209,20 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, 200)
         lv3.drawWave("cloud", "wave")
+        onKeyDown("r", () => {
+            go(currLv)
+        })
     },
     4: () => {
+        let sound = true
         const bgm = play("bgm", {
             volume: 0.05,
             loop: true
         })
         onSceneLeave(() => {
+            bgm.paused = true
+        })
+        onKeyDown("s", () => {
             bgm.paused = true
         })
         currLv = 4
@@ -222,15 +234,25 @@ const scenes = {
         player.enablePassthrough()
         player.enableCoinCollect()
         player.enableVunerability()
+        player.enableSuper()
         player.enableSpecial()
         player.update()
 
         add([
             sprite("upPower"),
-            pos(8145, 480),
+            pos(8145, 460),
+            scale(2),
             area(),
             offscreen(),
             "upPower",
+        ])
+        add([
+            sprite("superP"),
+            pos(4440, 305),
+            scale(4),
+            area(),
+            offscreen(),
+            "superP",
         ])
 
 
@@ -274,6 +296,9 @@ const scenes = {
         const camera = new Camera()
         camera.attach(player.gameObj, 0, 200)
         lv4.drawWave("cotton", "wave")
+        onKeyDown("r", () => {
+            go(currLv)
+        })
     },
     "preview": () => {
         uiManager.displayPreview()

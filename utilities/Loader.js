@@ -13,6 +13,7 @@ export const load = {
         loadSprite("logo", "./assets/Logo.png")
         loadSprite("up", "./assets/Arrow_Up_Key_Dark.png")
         loadSprite("upPower", "./assets/Arrow_Up.png")
+        loadSprite("superP", "./assets/Star_Yellow.png")
         loadSprite("down", "./assets/Arrow_Down_Key_Dark - Copy.png")
         loadSprite("left", "./assets/Arrow_Left_Key_Dark - Copy.png")
         loadSprite("right", "./assets/Arrow_Right_Key_Dark - Copy.png")
@@ -27,6 +28,7 @@ export const load = {
         loadSprite("lv2P", "./assets/lv2.png")
         loadSprite("lv3P", "./assets/lv3.png")
         loadSprite("lv4P", "./assets/lv4.png")
+        loadSprite("replay", "./assets/replay.png")
         loadSprite("bird", "./assets/Bird_1.png", {
             sliceX: 3,
             sliceY: 1,
@@ -304,5 +306,6 @@ export const load = {
         loadSound("bgm", "./sound/your-game-comedy-173310.mp3")
         loadSound("congrat", "./sound/tada-fanfare-a-6313.mp3")
         loadSound("gover", "./sound/075176_duck-quack-40345.mp3")
+        loadSound("super", "./sound/magic.wav")
     }
 }

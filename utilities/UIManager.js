@@ -14,6 +14,9 @@ class UIManager {
             scale(3),
             fixed()
         ])
+        onKeyDown("m", () => {
+            go("preview")
+        })
     }
 
     displayCoinCount(player) {
@@ -207,7 +210,7 @@ class UIManager {
             pos(center().x, center().y - 200)
         ])
         const controlWindowElements = add([
-            pos(center().x + 80, center().y)
+            pos(center().x + 80, center().y - 50)
         ])
 
         controlWindowElements.add([
@@ -236,6 +239,14 @@ class UIManager {
         controlWindowElements.add([
             text("Move", { font: "round", size: 36 }),
             pos(5, 100)
+        ])
+        controlWindowElements.add([
+            text("Replay", { font: "round", size: 36 }),
+            pos(-120, 200)
+        ])
+        controlWindowElements.add([
+            sprite("replay"),
+            pos(-250, 170),
         ])
 
         this.displayBlinkingMessage(
