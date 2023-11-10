@@ -240,7 +240,7 @@ const scenes = {
 
         add([
             sprite("upPower"),
-            pos(8145, 460),
+            pos(8142, 460),
             scale(2),
             area(),
             offscreen(),
@@ -248,7 +248,7 @@ const scenes = {
         ])
         add([
             sprite("superP"),
-            pos(4440, 305),
+            pos(4426, 305),
             scale(4),
             area(),
             offscreen(),
