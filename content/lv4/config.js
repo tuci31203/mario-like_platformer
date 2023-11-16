@@ -54,4 +54,13 @@ export const lv4Config = {
 
     sawPositions: [() => vec2(8000, 350)],
     sawAmp: [300],
+
+    birdAmp: [200, 250, 250, 300],
+    birdType: 1,
+    birdPositions: [
+        () => vec2(9165, 50),
+        () => vec2(9200, 50),
+        () => vec2(9550, 50),
+        () => vec2(9990, 50),
+    ],
 }

@@ -286,6 +286,13 @@ const scenes = {
         )
         saws.setMovementPattern()
 
+        const birds = new Birds(
+            lv4Config.birdPositions.map(bPos => bPos()),
+            lv4Config.birdAmp,
+        )
+
+        birds.setMovementPattern()
+
 
         uiManager.addDarkBg()
         uiManager.displayCoinCount(player)
