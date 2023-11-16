@@ -214,7 +214,6 @@ const scenes = {
         })
     },
     4: () => {
-        let sound = true
         const bgm = play("bgm", {
             volume: 0.05,
             loop: true
