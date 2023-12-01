@@ -39,6 +39,7 @@ const scenes = {
         uiManager.displayControlMenu()
     },
     1: () => {
+        localStorage.setItem("lv", "1")
         const waterBGM = play("water-bg", {
             volume: 0.02,
             loop: true
@@ -97,6 +98,7 @@ const scenes = {
         })
     },
     2: () => {
+        localStorage.setItem("lv", "2")
         const lavaBGM = play("lava-bg", {
             volume: 0.2,
             loop: true
@@ -166,6 +168,7 @@ const scenes = {
         })
     },
     3: () => {
+        localStorage.setItem("lv", "3")
         const windBGM = play("wind-bg", {
             volume: 0.02,
             loop: true
@@ -214,6 +217,7 @@ const scenes = {
         })
     },
     4: () => {
+        localStorage.setItem("lv", "4")
         const bgm = play("bgm", {
             volume: 0.05,
             loop: true
@@ -321,6 +325,7 @@ const scenes = {
 
     },
     "end": () => {
+        localStorage.removeItem("lv")
         const congrat = play("congrat", {
             volume: 1,
             loop: false
@@ -338,5 +343,7 @@ for (const k in scenes) {
 }
 
 
-
-go("menu")
+if (localStorage.getItem("lv")) {
+    const lastLv = JSON.parse(localStorage.getItem("lv"))
+    go(lastLv)
+} else go("menu")
