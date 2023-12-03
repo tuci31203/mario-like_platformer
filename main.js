@@ -30,13 +30,17 @@ load.fonts()
 load.sounds()
 load.assets()
 let currLv = 0
+const lastLv = JSON.parse(localStorage.getItem("lv"))
 
 const scenes = {
     menu: () => {
-        uiManager.displayMainMenu()
+        uiManager.displayMainMenu(lastLv)
     },
     controls: () => {
         uiManager.displayControlMenu()
+    },
+    continueLast: () => {
+        uiManager.displayContinueLastPlay(lastLv)
     },
     1: () => {
         localStorage.setItem("lv", "1")
@@ -343,7 +347,4 @@ for (const k in scenes) {
 }
 
 
-if (localStorage.getItem("lv")) {
-    const lastLv = JSON.parse(localStorage.getItem("lv"))
-    go(lastLv)
-} else go("menu")
+go("menu")

@@ -77,7 +77,7 @@ class UIManager {
     }
 
 
-    displayMainMenu() {
+    displayMainMenu(lastLV) {
         add([
             sprite("forest-bg"),
             scale(4)
@@ -95,6 +95,41 @@ class UIManager {
             vec2(center().x, center().y + 100)
         )
 
+        onKeyPress("enter", () => {
+            play("confirm", { speed: 1.5 })
+            if (!lastLV) {
+                go("preview")
+            } else {
+                go("continueLast")
+            }
+        })
+    }
+
+    displayContinueLastPlay(lv) {
+        add([
+            sprite("forest-bg"),
+            scale(4),
+            color(50, 50, 168)
+        ])
+
+        add([
+            text("Go to your last-played level ? Press [C]", {
+                font: "round",
+                size: 45
+            }),
+            anchor("center"),
+            pos(center())
+        ])
+
+        this.displayBlinkingMessage(
+            "Press [ Enter ] to skip",
+            vec2(center().x, center().y + 250),
+        )
+
+        onKeyPress("c", () => {
+            play("confirm", { speed: 1.5 })
+            go(lv)
+        })
         onKeyPress("enter", () => {
             play("confirm", { speed: 1.5 })
             go("preview")
