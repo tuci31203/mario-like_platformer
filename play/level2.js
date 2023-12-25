@@ -9,8 +9,7 @@ import { Obstacle } from "../entities/Obstacle.js"
 import { Axes } from "../entities/Axes.js"
 import { Saws } from "../entities/Saws.js"
 
-export const level2 = () => {
-    localStorage.setItem("lv", "2")
+export const level2 = (playLive) => {
     const lavaBGM = play("lava-bg", {
         volume: 0.2,
         loop: true
@@ -29,9 +28,11 @@ export const level2 = () => {
     const lv2 = new Level()
     lv2.drawBg("castle-bg")
     lv2.drawMap(lv2Layout, lv2Map)
-    const player = new Player(lv2Config.playerStartPosX, lv2Config.playerStartPosY, lv2Config.playerSpeed, lv2Config.jumpForce, lv2Config.lives, 2, false)
+    const livesToPlay = playLive ? playLive : lv2Config.lives
+    const player = new Player(lv2Config.playerStartPosX, lv2Config.playerStartPosY, lv2Config.playerSpeed, lv2Config.jumpForce, livesToPlay, 2, false)
     player.enablePassthrough()
     player.enableCoinCollect()
+    player.enableCollectLives()
     player.enableVunerability()
     player.update()
 
@@ -74,7 +75,4 @@ export const level2 = () => {
     const camera = new Camera()
     camera.attach(player.gameObj, 0, 200)
     lv2.drawWave("lava", "wave")
-    onKeyDown("r", () => {
-        go(currLv)
-    })
 }

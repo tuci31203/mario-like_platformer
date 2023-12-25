@@ -7,8 +7,7 @@ import { Camera } from "../utilities/Camera.js"
 import { Spider } from "../entities/Spider.js"
 import { Obstacle } from "../entities/Obstacle.js"
 
-export const level1 = () => {
-    localStorage.setItem("lv", "1")
+export const level1 = (playLive) => {
     const waterBGM = play("water-bg", {
         volume: 0.02,
         loop: true
@@ -27,7 +26,9 @@ export const level1 = () => {
     const lv1 = new Level()
     lv1.drawBg("forest-bg")
     lv1.drawMap(lv1Layout, lv1Map)
-    const player = new Player(lv1Config.playerStartPosX, lv1Config.playerStartPosY, lv1Config.playerSpeed, lv1Config.jumpForce, lv1Config.lives, 1, false)
+    const livesToPlay = playLive ? playLive : lv1Config.lives
+    const player = new Player(lv1Config.playerStartPosX, lv1Config.playerStartPosY, lv1Config.playerSpeed, lv1Config.jumpForce, livesToPlay, 1, false)
+
     player.enablePassthrough()
     player.enableCoinCollect()
     player.enableVunerability()
@@ -61,7 +62,4 @@ export const level1 = () => {
     const camera = new Camera()
     camera.attach(player.gameObj, 0, 200)
     lv1.drawWave("water", "wave")
-    onKeyDown("r", () => {
-        go(currLv)
-    })
 }

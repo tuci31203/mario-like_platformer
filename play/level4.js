@@ -11,8 +11,7 @@ import { Saws } from "../entities/Saws.js"
 import { Birds } from "../entities/Birds.js"
 
 
-export const level4 = () => {
-    localStorage.setItem("lv", "4")
+export const level4 = (playLive) => {
     const bgm = play("bgm", {
         volume: 0.05,
         loop: true
@@ -27,7 +26,9 @@ export const level4 = () => {
     const lv4 = new Level()
     lv4.drawBg("final-bg")
     lv4.drawMap(lv4Layout, lv4Map)
-    const player = new Player(lv4Config.playerStartPosX, lv4Config.playerStartPosY, lv4Config.playerSpeed, lv4Config.jumpForce, lv4Config.lives, 4, true)
+    const livesToPlay = playLive ? playLive : lv4Config.lives
+    const player = new Player(lv4Config.playerStartPosX, lv4Config.playerStartPosY, lv4Config.playerSpeed, lv4Config.jumpForce, livesToPlay, 4, true)
+
     player.enablePassthrough()
     player.enableCoinCollect()
     player.enableVunerability()
@@ -100,7 +101,4 @@ export const level4 = () => {
     const camera = new Camera()
     camera.attach(player.gameObj, 0, 200)
     lv4.drawWave("cotton", "wave")
-    onKeyDown("r", () => {
-        go(currLv)
-    })
 }

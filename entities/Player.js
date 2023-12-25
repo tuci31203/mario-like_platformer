@@ -7,6 +7,7 @@ export class Player {
     isMoving = false
     isRespawning = false
     constructor(posX, posY, speed, jumpForce, lives, currLevel, isFinalLv) {
+        localStorage.setItem("p", JSON.stringify({ "lv": window.btoa(currLevel), "lives": window.btoa(lives) }))
         this.isFinalLv = isFinalLv
         this.currLevel = currLevel
         this.initialX = posX
@@ -30,6 +31,15 @@ export class Player {
             body(),
             "player"
         ])
+    }
+
+    enableCollectLives() {
+        this.gameObj.onCollide("heart", (heart) => {
+            if (this.lives < 3) this.lives++
+            play("coin")
+            destroy(heart)
+            localStorage.setItem("p", JSON.stringify({ "lv": window.btoa(this.currLevel), "lives": window.btoa(this.lives) }))
+        })
     }
 
     enableSuper() {
@@ -128,6 +138,7 @@ export class Player {
             this.lives--
             this.gameObj.pos = vec2(this.initialX, this.initialY)
             this.isRespawning = true
+            localStorage.setItem("p", JSON.stringify({ "lv": window.btoa(this.currLevel), "lives": window.btoa(this.lives) }))
             setTimeout(() => this.isRespawning = false, 500)
             return
         }

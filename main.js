@@ -17,7 +17,10 @@ kaboom({
 load.fonts()
 load.sounds()
 load.assets()
-const lastLv = JSON.parse(localStorage.getItem("lv"))
+const lastPlay = JSON.parse(localStorage.getItem("p"))
+const lastLv = lastPlay ? window.atob(lastPlay["lv"]) : 0
+const lastlives = lastPlay ? window.atob(lastPlay["lives"]) : 0
+let cont = 0, currlv = 0, playLive = 0
 
 const scenes = {
     menu: () => {
@@ -27,19 +30,35 @@ const scenes = {
         uiManager.displayControlMenu()
     },
     continueLast: () => {
-        uiManager.displayContinueLastPlay(lastLv)
+        uiManager.displayContinueLastPlay()
+        onKeyPress("c", () => {
+            play("confirm", { speed: 1.5 })
+            cont = 1
+            go(lastLv)
+        })
     },
     1: () => {
-        level1()
+        currlv = 1
+        playLive = lastLv == 1 && cont ? lastlives : 0
+
+        level1(playLive)
     },
     2: () => {
-        level2()
+        currlv = 2
+        playLive = lastLv == 2 && cont ? lastlives : 0
+
+        level2(playLive)
     },
     3: () => {
-        level3()
+        currlv = 3
+        playLive = lastLv == 3 && cont ? lastlives : 0
+
+        level3(playLive)
     },
     4: () => {
-        level4()
+        currlv = 4
+        playLive = lastLv == 4 && cont ? lastlives : 0
+        level4(playLive)
     },
     "preview": () => {
         uiManager.displayPreview()
@@ -52,11 +71,12 @@ const scenes = {
         onSceneLeave(() => {
             gover.paused = true
         })
-        uiManager.displayGOScreen(JSON.parse(localStorage.getItem("lv")))
+        cont = 0
+        uiManager.displayGOScreen(currlv)
 
     },
     "end": () => {
-        localStorage.removeItem("lv")
+        localStorage.removeItem("p")
         const congrat = play("congrat", {
             volume: 1,
             loop: false

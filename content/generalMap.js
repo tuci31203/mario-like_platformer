@@ -94,6 +94,12 @@ export const generateMap = (tileType) => {
             "coin",
             offscreen()
         ],
+        "+": () => [
+            sprite("lives-icon"),
+            area(),
+            offscreen(),
+            "heart",
+        ],
 
     }
 }

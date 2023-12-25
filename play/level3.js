@@ -7,8 +7,7 @@ import { Camera } from "../utilities/Camera.js"
 import { Birds } from "../entities/Birds.js"
 
 
-export const level3 = () => {
-    localStorage.setItem("lv", "3")
+export const level3 = (playLive) => {
     const windBGM = play("wind-bg", {
         volume: 0.02,
         loop: true
@@ -29,9 +28,11 @@ export const level3 = () => {
     lv3.drawBg("sky1-bg")
     lv3.drawBg("sky2-bg")
     lv3.drawMap(lv3Layout, lv3Map)
-    const player = new Player(lv3Config.playerStartPosX, lv3Config.playerStartPosY, lv3Config.playerSpeed, lv3Config.jumpForce, lv3Config.lives, 3, false)
+    const livesToPlay = playLive ? playLive : lv3Config.lives
+    const player = new Player(lv3Config.playerStartPosX, lv3Config.playerStartPosY, lv3Config.playerSpeed, lv3Config.jumpForce, livesToPlay, 3, false)
     player.enablePassthrough()
     player.enableCoinCollect()
+    player.enableCollectLives()
     player.enableVunerability()
     player.update()
 
@@ -51,7 +52,4 @@ export const level3 = () => {
     const camera = new Camera()
     camera.attach(player.gameObj, 0, 200)
     lv3.drawWave("cloud", "wave")
-    onKeyDown("r", () => {
-        go(currLv)
-    })
 }

@@ -6,7 +6,7 @@ export const lv2Layout = [
     [
         "                                                                                                                                            ",
         "                                                                                                                                            ",
-        "                                 $ 9aab                                                                                                     ",
+        "                                 $ 9aab                 +                                                                                   ",
         "                                   cdde                                                                                                     ",
         "                           $   9aabcdde                9aab                      $                           $  $  $                        ",
         "                               cddecdde                cdde                                               0111111111112                     ",
