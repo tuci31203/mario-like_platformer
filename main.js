@@ -46,13 +46,11 @@ const scenes = {
     2: () => {
         currlv = 2
         playLive = lastLv == 2 && cont ? lastlives : 0
-
         level2(playLive)
     },
     3: () => {
         currlv = 3
         playLive = lastLv == 3 && cont ? lastlives : 0
-
         level3(playLive)
     },
     4: () => {
