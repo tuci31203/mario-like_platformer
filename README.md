@@ -9,9 +9,9 @@ Most of the assets used can be find at [**JuhoSprite**](https://juhosprite.itch.
 
 Download all the files then extract to a folder.
 
-Open the **mario-like platformer** in your IDE.
+Open the **mario-like_platformer** folder in your IDE.
 
-You may have to adjust the url shortener depending on your folder structure.("./" <-> "../").
+You may have to adjust the url shortener depending on your folder structure.("./" <-> "../") if any error occurs.
 
 Go live and play the game!
 
