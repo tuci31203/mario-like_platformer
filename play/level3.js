@@ -41,6 +41,9 @@ export const level3 = (playLive) => {
         lv3Config.birdAmp,
     )
 
+
+
+
     birds.setMovementPattern()
 
     uiManager.addDarkBg()
